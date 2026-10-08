@@ -519,6 +519,15 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
     `;
 
+    const shareText = `Check out ${name} at Mergington High School: ${details.description}`;
+    const pageUrl = window.location.href.split("#")[0];
+    const shareUrls = {
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}&quote=${encodeURIComponent(shareText)}`,
+      x: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(pageUrl)}`,
+      whatsapp: `https://wa.me/?text=${encodeURIComponent(shareText + " " + pageUrl)}`,
+      email: `mailto:?subject=${encodeURIComponent(name)}&body=${encodeURIComponent(shareText + "\n" + pageUrl)}`,
+    };
+
     activityCard.innerHTML = `
       ${tagHtml}
       <h4>${name}</h4>
@@ -551,6 +560,13 @@ document.addEventListener("DOMContentLoaded", () => {
             )
             .join("")}
         </ul>
+      </div>
+      <div class="share-buttons">
+        <span class="share-label">Share:</span>
+        <a class="share-button" data-network="facebook" target="_blank" rel="noopener noreferrer" href="${shareUrls.facebook}" title="Share on Facebook">Facebook</a>
+        <a class="share-button" data-network="x" target="_blank" rel="noopener noreferrer" href="${shareUrls.x}" title="Share on X">X</a>
+        <a class="share-button" data-network="whatsapp" target="_blank" rel="noopener noreferrer" href="${shareUrls.whatsapp}" title="Share on WhatsApp">WhatsApp</a>
+        <a class="share-button" data-network="email" href="${shareUrls.email}" title="Share by email">Email</a>
       </div>
       <div class="activity-card-actions">
         ${
