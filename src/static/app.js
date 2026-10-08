@@ -7,6 +7,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const signupForm = document.getElementById("signup-form");
   const activityInput = document.getElementById("activity");
   const closeRegistrationModal = document.querySelector(".close-modal");
+  const themeToggle = document.getElementById("theme-toggle");
+
+  function setTheme(isDark) {
+    document.body.classList.toggle("dark-mode", isDark);
+    themeToggle.textContent = isDark ? "☀️ Light mode" : "🌙 Dark mode";
+    themeToggle.setAttribute("aria-pressed", String(isDark));
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+  }
+
+  setTheme(localStorage.getItem("theme") === "dark");
+  themeToggle.addEventListener("click", () => {
+    setTheme(!document.body.classList.contains("dark-mode"));
+  });
 
   // Search and filter elements
   const searchInput = document.getElementById("activity-search");
